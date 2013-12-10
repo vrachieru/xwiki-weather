@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xwikidoc>
+<web>Weather</web>
+<name>Proxy</name>
+<language></language>
+<defaultLanguage>en</defaultLanguage>
+<translation>0</translation>
+<parent>Weather.WebHome</parent>
+<creator>XWiki.Admin</creator>
+<author>XWiki.Admin</author>
+<customClass></customClass>
+<contentAuthor>XWiki.Admin</contentAuthor>
+<creationDate>1386231565000</creationDate>
+<date>1386403644000</date>
+<contentUpdateDate>1386403644000</contentUpdateDate>
+<version>2.11</version>
+<title>Proxy</title>
+<defaultTemplate></defaultTemplate>
+<validationScript></validationScript>
+<comment></comment>
+<minorEdit>true</minorEdit>
+<syntaxId>xwiki/2.1</syntaxId>
+<hidden>false</hidden>
+<content>{{groovy}}
+  if (request.url != null)
+  {
+    def key  = 'c0361b082142fb1f9d1e469772797610';
+    def data = new URL('https://api.forecast.io/forecast/' + key + '/' + request.url + '?units=' + request.units).getText()
+    println data
+  }
+{{/groovy}}</content></xwikidoc>

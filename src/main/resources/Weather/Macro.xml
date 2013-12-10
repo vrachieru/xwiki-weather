@@ -1,0 +1,2256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xwikidoc>
+<web>Weather</web>
+<name>Macro</name>
+<language></language>
+<defaultLanguage>en</defaultLanguage>
+<translation>0</translation>
+<parent></parent>
+<creator>XWiki.Admin</creator>
+<author>XWiki.Admin</author>
+<customClass></customClass>
+<contentAuthor>XWiki.Admin</contentAuthor>
+<creationDate>1386231565000</creationDate>
+<date>1386406033000</date>
+<contentUpdateDate>1386345066000</contentUpdateDate>
+<version>12.27</version>
+<title></title>
+<defaultTemplate></defaultTemplate>
+<validationScript></validationScript>
+<comment></comment>
+<minorEdit>true</minorEdit>
+<syntaxId>xwiki/2.1</syntaxId>
+<hidden>false</hidden>
+<object>
+<class>
+<name>XWiki.JavaScriptExtension</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<cache>
+<cache>0</cache>
+<disabled>0</disabled>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>cache</name>
+<number>5</number>
+<prettyName>Caching policy</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>long|short|default|forbid</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</cache>
+<code>
+<disabled>0</disabled>
+<name>code</name>
+<number>2</number>
+<prettyName>Code</prettyName>
+<rows>20</rows>
+<size>50</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+</code>
+<name>
+<disabled>0</disabled>
+<name>name</name>
+<number>1</number>
+<prettyName>Name</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</name>
+<parse>
+<disabled>0</disabled>
+<displayFormType>select</displayFormType>
+<displayType>yesno</displayType>
+<name>parse</name>
+<number>4</number>
+<prettyName>Parse content</prettyName>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+</parse>
+<use>
+<cache>0</cache>
+<disabled>0</disabled>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>use</name>
+<number>3</number>
+<prettyName>Use this extension</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>currentPage=Always on this page|onDemand=On demand|always=Always on this wiki</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</use>
+</class>
+<name>Weather.Macro</name>
+<number>0</number>
+<className>XWiki.JavaScriptExtension</className>
+<guid>69b7d13d-3be6-44cd-9771-ea7b8a73ae31</guid>
+<property>
+<cache>long</cache>
+</property>
+<property>
+<code>// moment.js
+// version : 2.0.0
+// author : Tim Wood
+// license : MIT
+// momentjs.com
+
+(function(e){function O(e,t){return function(n){return j(e.call(this,n),t)}}function M(e){return function(t){return this.lang().ordinal(e.call(this,t))}}function _(){}function D(e){H(this,e)}function P(e){var t=this._data={},n=e.years||e.year||e.y||0,r=e.months||e.month||e.M||0,i=e.weeks||e.week||e.w||0,s=e.days||e.day||e.d||0,o=e.hours||e.hour||e.h||0,u=e.minutes||e.minute||e.m||0,a=e.seconds||e.second||e.s||0,f=e.milliseconds||e.millisecond||e.ms||0;this._milliseconds=f+a*1e3+u*6e4+o*36e5,this._days=s+i*7,this._months=r+n*12,t.milliseconds=f%1e3,a+=B(f/1e3),t.seconds=a%60,u+=B(a/60),t.minutes=u%60,o+=B(u/60),t.hours=o%24,s+=B(o/24),s+=i*7,t.days=s%30,r+=B(s/30),t.months=r%12,n+=B(r/12),t.years=n}function H(e,t){for(var n in t)t.hasOwnProperty(n)&amp;&amp;(e[n]=t[n]);return e}function B(e){return e&lt;0?Math.ceil(e):Math.floor(e)}function j(e,t){var n=e+"";while(n.length&lt;t)n="0"+n;return n}function F(e,t,n){var r=t._milliseconds,i=t._days,s=t._months,o;r&amp;&amp;e._d.setTime(+e+r*n),i&amp;&amp;e.date(e.date()+i*n),s&amp;&amp;(o=e.date(),e.date(1).month(e.month()+s*n).date(Math.min(o,e.daysInMonth())))}function I(e){return Object.prototype.toString.call(e)==="[object Array]"}function q(e,t){var n=Math.min(e.length,t.length),r=Math.abs(e.length-t.length),i=0,s;for(s=0;s&lt;n;s++)~~e[s]!==~~t[s]&amp;&amp;i++;return i+r}function R(e,t){return t.abbr=e,s[e]||(s[e]=new _),s[e].set(t),s[e]}function U(e){return e?(!s[e]&amp;&amp;o&amp;&amp;require("./lang/"+e),s[e]):t.fn._lang}function z(e){return e.match(/\[.*\]/)?e.replace(/^\[|\]$/g,""):e.replace(/\\/g,"")}function W(e){var t=e.match(a),n,r;for(n=0,r=t.length;n&lt;r;n++)A[t[n]]?t[n]=A[t[n]]:t[n]=z(t[n]);return function(i){var s="";for(n=0;n&lt;r;n++)s+=typeof t[n].call=="function"?t[n].call(i,e):t[n];return s}}function X(e,t){function r(t){return e.lang().longDateFormat(t)||t}var n=5;while(n--&amp;&amp;f.test(t))t=t.replace(f,r);return C[t]||(C[t]=W(t)),C[t](e)}function V(e){switch(e){case"DDDD":return p;case"YYYY":return d;case"YYYYY":return v;case"S":case"SS":case"SSS":case"DDD":return h;case"MMM":case"MMMM":case"dd":case"ddd":case"dddd":case"a":case"A":return m;case"X":return b;case"Z":case"ZZ":return g;case"T":return y;case"MM":case"DD":case"YY":case"HH":case"hh":case"mm":case"ss":case"M":case"D":case"d":case"H":case"h":case"m":case"s":return c;default:return new RegExp(e.replace("\\",""))}}function $(e,t,n){var r,i,s=n._a;switch(e){case"M":case"MM":s[1]=t==null?0:~~t-1;break;case"MMM":case"MMMM":r=U(n._l).monthsParse(t),r!=null?s[1]=r:n._isValid=!1;break;case"D":case"DD":case"DDD":case"DDDD":t!=null&amp;&amp;(s[2]=~~t);break;case"YY":s[0]=~~t+(~~t&gt;68?1900:2e3);break;case"YYYY":case"YYYYY":s[0]=~~t;break;case"a":case"A":n._isPm=(t+"").toLowerCase()==="pm";break;case"H":case"HH":case"h":case"hh":s[3]=~~t;break;case"m":case"mm":s[4]=~~t;break;case"s":case"ss":s[5]=~~t;break;case"S":case"SS":case"SSS":s[6]=~~(("0."+t)*1e3);break;case"X":n._d=new Date(parseFloat(t)*1e3);break;case"Z":case"ZZ":n._useUTC=!0,r=(t+"").match(x),r&amp;&amp;r[1]&amp;&amp;(n._tzh=~~r[1]),r&amp;&amp;r[2]&amp;&amp;(n._tzm=~~r[2]),r&amp;&amp;r[0]==="+"&amp;&amp;(n._tzh=-n._tzh,n._tzm=-n._tzm)}t==null&amp;&amp;(n._isValid=!1)}function J(e){var t,n,r=[];if(e._d)return;for(t=0;t&lt;7;t++)e._a[t]=r[t]=e._a[t]==null?t===2?1:0:e._a[t];r[3]+=e._tzh||0,r[4]+=e._tzm||0,n=new Date(0),e._useUTC?(n.setUTCFullYear(r[0],r[1],r[2]),n.setUTCHours(r[3],r[4],r[5],r[6])):(n.setFullYear(r[0],r[1],r[2]),n.setHours(r[3],r[4],r[5],r[6])),e._d=n}function K(e){var t=e._f.match(a),n=e._i,r,i;e._a=[];for(r=0;r&lt;t.length;r++)i=(V(t[r]).exec(n)||[])[0],i&amp;&amp;(n=n.slice(n.indexOf(i)+i.length)),A[t[r]]&amp;&amp;$(t[r],i,e);e._isPm&amp;&amp;e._a[3]&lt;12&amp;&amp;(e._a[3]+=12),e._isPm===!1&amp;&amp;e._a[3]===12&amp;&amp;(e._a[3]=0),J(e)}function Q(e){var t,n,r,i=99,s,o,u;while(e._f.length){t=H({},e),t._f=e._f.pop(),K(t),n=new D(t);if(n.isValid()){r=n;break}u=q(t._a,n.toArray()),u&lt;i&amp;&amp;(i=u,r=n)}H(e,r)}function G(e){var t,n=e._i;if(w.exec(n)){e._f="YYYY-MM-DDT";for(t=0;t&lt;4;t++)if(S[t][1].exec(n)){e._f+=S[t][0];break}g.exec(n)&amp;&amp;(e._f+=" Z"),K(e)}else e._d=new Date(n)}function Y(t){var n=t._i,r=u.exec(n);n===e?t._d=new Date:r?t._d=new Date(+r[1]):typeof n=="string"?G(t):I(n)?(t._a=n.slice(0),J(t)):t._d=n instanceof Date?new Date(+n):new Date(n)}function Z(e,t,n,r,i){return i.relativeTime(t||1,!!n,e,r)}function et(e,t,n){var i=r(Math.abs(e)/1e3),s=r(i/60),o=r(s/60),u=r(o/24),a=r(u/365),f=i&lt;45&amp;&amp;["s",i]||s===1&amp;&amp;["m"]||s&lt;45&amp;&amp;["mm",s]||o===1&amp;&amp;["h"]||o&lt;22&amp;&amp;["hh",o]||u===1&amp;&amp;["d"]||u&lt;=25&amp;&amp;["dd",u]||u&lt;=45&amp;&amp;["M"]||u&lt;345&amp;&amp;["MM",r(u/30)]||a===1&amp;&amp;["y"]||["yy",a];return f[2]=t,f[3]=e&gt;0,f[4]=n,Z.apply({},f)}function tt(e,n,r){var i=r-n,s=r-e.day();return s&gt;i&amp;&amp;(s-=7),s&lt;i-7&amp;&amp;(s+=7),Math.ceil(t(e).add("d",s).dayOfYear()/7)}function nt(e){var n=e._i,r=e._f;return n===null||n===""?null:(typeof n=="string"&amp;&amp;(e._i=n=U().preparse(n)),t.isMoment(n)?(e=H({},n),e._d=new Date(+n._d)):r?I(r)?Q(e):K(e):Y(e),new D(e))}function rt(e,n){t.fn[e]=t.fn[e+"s"]=function(e){var t=this._isUTC?"UTC":"";return e!=null?(this._d["set"+t+n](e),this):this._d["get"+t+n]()}}function it(e){t.duration.fn[e]=function(){return this._data[e]}}function st(e,n){t.duration.fn["as"+e]=function(){return+this/n}}var t,n="2.0.0",r=Math.round,i,s={},o=typeof module!="undefined"&amp;&amp;module.exports,u=/^\/?Date\((\-?\d+)/i,a=/(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,f=/(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,l=/([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi,c=/\d\d?/,h=/\d{1,3}/,p=/\d{3}/,d=/\d{1,4}/,v=/[+\-]?\d{1,6}/,m=/[0-9]*[a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF]+\s*?[\u0600-\u06FF]+/i,g=/Z|[\+\-]\d\d:?\d\d/i,y=/T/i,b=/[\+\-]?\d+(\.\d{1,3})?/,w=/^\s*\d{4}-\d\d-\d\d((T| )(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?/,E="YYYY-MM-DDTHH:mm:ssZ",S=[["HH:mm:ss.S",/(T| )\d\d:\d\d:\d\d\.\d{1,3}/],["HH:mm:ss",/(T| )\d\d:\d\d:\d\d/],["HH:mm",/(T| )\d\d:\d\d/],["HH",/(T| )\d\d/]],x=/([\+\-]|\d\d)/gi,T="Month|Date|Hours|Minutes|Seconds|Milliseconds".split("|"),N={Milliseconds:1,Seconds:1e3,Minutes:6e4,Hours:36e5,Days:864e5,Months:2592e6,Years:31536e6},C={},k="DDD w W M D d".split(" "),L="M D H h m s w W".split(" "),A={M:function(){return this.month()+1},MMM:function(e){return this.lang().monthsShort(this,e)},MMMM:function(e){return this.lang().months(this,e)},D:function(){return this.date()},DDD:function(){return this.dayOfYear()},d:function(){return this.day()},dd:function(e){return this.lang().weekdaysMin(this,e)},ddd:function(e){return this.lang().weekdaysShort(this,e)},dddd:function(e){return this.lang().weekdays(this,e)},w:function(){return this.week()},W:function(){return this.isoWeek()},YY:function(){return j(this.year()%100,2)},YYYY:function(){return j(this.year(),4)},YYYYY:function(){return j(this.year(),5)},a:function(){return this.lang().meridiem(this.hours(),this.minutes(),!0)},A:function(){return this.lang().meridiem(this.hours(),this.minutes(),!1)},H:function(){return this.hours()},h:function(){return this.hours()%12||12},m:function(){return this.minutes()},s:function(){return this.seconds()},S:function(){return~~(this.milliseconds()/100)},SS:function(){return j(~~(this.milliseconds()/10),2)},SSS:function(){return j(this.milliseconds(),3)},Z:function(){var e=-this.zone(),t="+";return e&lt;0&amp;&amp;(e=-e,t="-"),t+j(~~(e/60),2)+":"+j(~~e%60,2)},ZZ:function(){var e=-this.zone(),t="+";return e&lt;0&amp;&amp;(e=-e,t="-"),t+j(~~(10*e/6),4)},X:function(){return this.unix()}};while(k.length)i=k.pop(),A[i+"o"]=M(A[i]);while(L.length)i=L.pop(),A[i+i]=O(A[i],2);A.DDDD=O(A.DDD,3),_.prototype={set:function(e){var t,n;for(n in e)t=e[n],typeof t=="function"?this[n]=t:this["_"+n]=t},_months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_"),months:function(e){return this._months[e.month()]},_monthsShort:"Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),monthsShort:function(e){return this._monthsShort[e.month()]},monthsParse:function(e){var n,r,i,s;this._monthsParse||(this._monthsParse=[]);for(n=0;n&lt;12;n++){this._monthsParse[n]||(r=t([2e3,n]),i="^"+this.months(r,"")+"|^"+this.monthsShort(r,""),this._monthsParse[n]=new RegExp(i.replace(".",""),"i"));if(this._monthsParse[n].test(e))return n}},_weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),weekdays:function(e){return this._weekdays[e.day()]},_weekdaysShort:"Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),weekdaysShort:function(e){return this._weekdaysShort[e.day()]},_weekdaysMin:"Su_Mo_Tu_We_Th_Fr_Sa".split("_"),weekdaysMin:function(e){return this._weekdaysMin[e.day()]},_longDateFormat:{LT:"h:mm A",L:"MM/DD/YYYY",LL:"MMMM D YYYY",LLL:"MMMM D YYYY LT",LLLL:"dddd, MMMM D YYYY LT"},longDateFormat:function(e){var t=this._longDateFormat[e];return!t&amp;&amp;this._longDateFormat[e.toUpperCase()]&amp;&amp;(t=this._longDateFormat[e.toUpperCase()].replace(/MMMM|MM|DD|dddd/g,function(e){return e.slice(1)}),this._longDateFormat[e]=t),t},meridiem:function(e,t,n){return e&gt;11?n?"pm":"PM":n?"am":"AM"},_calendar:{sameDay:"[Today at] LT",nextDay:"[Tomorrow at] LT",nextWeek:"dddd [at] LT",lastDay:"[Yesterday at] LT",lastWeek:"[last] dddd [at] LT",sameElse:"L"},calendar:function(e,t){var n=this._calendar[e];return typeof n=="function"?n.apply(t):n},_relativeTime:{future:"in %s",past:"%s ago",s:"a few seconds",m:"a minute",mm:"%d minutes",h:"an hour",hh:"%d hours",d:"a day",dd:"%d days",M:"a month",MM:"%d months",y:"a year",yy:"%d years"},relativeTime:function(e,t,n,r){var i=this._relativeTime[n];return typeof i=="function"?i(e,t,n,r):i.replace(/%d/i,e)},pastFuture:function(e,t){var n=this._relativeTime[e&gt;0?"future":"past"];return typeof n=="function"?n(t):n.replace(/%s/i,t)},ordinal:function(e){return this._ordinal.replace("%d",e)},_ordinal:"%d",preparse:function(e){return e},postformat:function(e){return e},week:function(e){return tt(e,this._week.dow,this._week.doy)},_week:{dow:0,doy:6}},t=function(e,t,n){return nt({_i:e,_f:t,_l:n,_isUTC:!1})},t.utc=function(e,t,n){return nt({_useUTC:!0,_isUTC:!0,_l:n,_i:e,_f:t})},t.unix=function(e){return t(e*1e3)},t.duration=function(e,n){var r=t.isDuration(e),i=typeof e=="number",s=r?e._data:i?{}:e,o;return i&amp;&amp;(n?s[n]=e:s.milliseconds=e),o=new P(s),r&amp;&amp;e.hasOwnProperty("_lang")&amp;&amp;(o._lang=e._lang),o},t.version=n,t.defaultFormat=E,t.lang=function(e,n){var r;if(!e)return t.fn._lang._abbr;n?R(e,n):s[e]||U(e),t.duration.fn._lang=t.fn._lang=U(e)},t.langData=function(e){return e&amp;&amp;e._lang&amp;&amp;e._lang._abbr&amp;&amp;(e=e._lang._abbr),U(e)},t.isMoment=function(e){return e instanceof D},t.isDuration=function(e){return e instanceof P},t.fn=D.prototype={clone:function(){return t(this)},valueOf:function(){return+this._d},unix:function(){return Math.floor(+this._d/1e3)},toString:function(){return this.format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ")},toDate:function(){return this._d},toJSON:function(){return t.utc(this).format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]")},toArray:function(){var e=this;return[e.year(),e.month(),e.date(),e.hours(),e.minutes(),e.seconds(),e.milliseconds()]},isValid:function(){return this._isValid==null&amp;&amp;(this._a?this._isValid=!q(this._a,(this._isUTC?t.utc(this._a):t(this._a)).toArray()):this._isValid=!isNaN(this._d.getTime())),!!this._isValid},utc:function(){return this._isUTC=!0,this},local:function(){return this._isUTC=!1,this},format:function(e){var n=X(this,e||t.defaultFormat);return this.lang().postformat(n)},add:function(e,n){var r;return typeof e=="string"?r=t.duration(+n,e):r=t.duration(e,n),F(this,r,1),this},subtract:function(e,n){var r;return typeof e=="string"?r=t.duration(+n,e):r=t.duration(e,n),F(this,r,-1),this},diff:function(e,n,r){var i=this._isUTC?t(e).utc():t(e).local(),s=(this.zone()-i.zone())*6e4,o,u;return n&amp;&amp;(n=n.replace(/s$/,"")),n==="year"||n==="month"?(o=(this.daysInMonth()+i.daysInMonth())*432e5,u=(this.year()-i.year())*12+(this.month()-i.month()),u+=(this-t(this).startOf("month")-(i-t(i).startOf("month")))/o,n==="year"&amp;&amp;(u/=12)):(o=this-i-s,u=n==="second"?o/1e3:n==="minute"?o/6e4:n==="hour"?o/36e5:n==="day"?o/864e5:n==="week"?o/6048e5:o),r?u:B(u)},from:function(e,n){return t.duration(this.diff(e)).lang(this.lang()._abbr).humanize(!n)},fromNow:function(e){return this.from(t(),e)},calendar:function(){var e=this.diff(t().startOf("day"),"days",!0),n=e&lt;-6?"sameElse":e&lt;-1?"lastWeek":e&lt;0?"lastDay":e&lt;1?"sameDay":e&lt;2?"nextDay":e&lt;7?"nextWeek":"sameElse";return this.format(this.lang().calendar(n,this))},isLeapYear:function(){var e=this.year();return e%4===0&amp;&amp;e%100!==0||e%400===0},isDST:function(){return this.zone()&lt;t([this.year()]).zone()||this.zone()&lt;t([this.year(),5]).zone()},day:function(e){var t=this._isUTC?this._d.getUTCDay():this._d.getDay();return e==null?t:this.add({d:e-t})},startOf:function(e){e=e.replace(/s$/,"");switch(e){case"year":this.month(0);case"month":this.date(1);case"week":case"day":this.hours(0);case"hour":this.minutes(0);case"minute":this.seconds(0);case"second":this.milliseconds(0)}return e==="week"&amp;&amp;this.day(0),this},endOf:function(e){return this.startOf(e).add(e.replace(/s?$/,"s"),1).subtract("ms",1)},isAfter:function(e,n){return n=typeof n!="undefined"?n:"millisecond",+this.clone().startOf(n)&gt;+t(e).startOf(n)},isBefore:function(e,n){return n=typeof n!="undefined"?n:"millisecond",+this.clone().startOf(n)&lt;+t(e).startOf(n)},isSame:function(e,n){return n=typeof n!="undefined"?n:"millisecond",+this.clone().startOf(n)===+t(e).startOf(n)},zone:function(){return this._isUTC?0:this._d.getTimezoneOffset()},daysInMonth:function(){return t.utc([this.year(),this.month()+1,0]).date()},dayOfYear:function(e){var n=r((t(this).startOf("day")-t(this).startOf("year"))/864e5)+1;return e==null?n:this.add("d",e-n)},isoWeek:function(e){var t=tt(this,1,4);return e==null?t:this.add("d",(e-t)*7)},week:function(e){var t=this.lang().week(this);return e==null?t:this.add("d",(e-t)*7)},lang:function(t){return t===e?this._lang:(this._lang=U(t),this)}};for(i=0;i&lt;T.length;i++)rt(T[i].toLowerCase().replace(/s$/,""),T[i]);rt("year","FullYear"),t.fn.days=t.fn.day,t.fn.weeks=t.fn.week,t.fn.isoWeeks=t.fn.isoWeek,t.duration.fn=P.prototype={weeks:function(){return B(this.days()/7)},valueOf:function(){return this._milliseconds+this._days*864e5+this._months*2592e6},humanize:function(e){var t=+this,n=et(t,!e,this.lang());return e&amp;&amp;(n=this.lang().pastFuture(t,n)),this.lang().postformat(n)},lang:t.fn.lang};for(i in N)N.hasOwnProperty(i)&amp;&amp;(st(i,N[i]),it(i.toLowerCase()));st("Weeks",6048e5),t.lang("en",{ordinal:function(e){var t=e%10,n=~~(e%100/10)===1?"th":t===1?"st":t===2?"nd":t===3?"rd":"th";return e+n}}),o&amp;&amp;(module.exports=t),typeof ender=="undefined"&amp;&amp;(this.moment=t),typeof define=="function"&amp;&amp;define.amd&amp;&amp;define("moment",[],function(){return t})}).call(this);</code>
+</property>
+<property>
+<name>Moment</name>
+</property>
+<property>
+<parse>0</parse>
+</property>
+<property>
+<use>onDemand</use>
+</property>
+</object>
+<object>
+<class>
+<name>XWiki.JavaScriptExtension</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<cache>
+<cache>0</cache>
+<disabled>0</disabled>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>cache</name>
+<number>5</number>
+<prettyName>Caching policy</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>long|short|default|forbid</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</cache>
+<code>
+<disabled>0</disabled>
+<name>code</name>
+<number>2</number>
+<prettyName>Code</prettyName>
+<rows>20</rows>
+<size>50</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+</code>
+<name>
+<disabled>0</disabled>
+<name>name</name>
+<number>1</number>
+<prettyName>Name</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</name>
+<parse>
+<disabled>0</disabled>
+<displayFormType>select</displayFormType>
+<displayType>yesno</displayType>
+<name>parse</name>
+<number>4</number>
+<prettyName>Parse content</prettyName>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+</parse>
+<use>
+<cache>0</cache>
+<disabled>0</disabled>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>use</name>
+<number>3</number>
+<prettyName>Use this extension</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>currentPage=Always on this page|onDemand=On demand|always=Always on this wiki</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</use>
+</class>
+<name>Weather.Macro</name>
+<number>1</number>
+<className>XWiki.JavaScriptExtension</className>
+<guid>554453f5-14e9-4934-bddd-86124fa9c195</guid>
+<property>
+<cache>long</cache>
+</property>
+<property>
+<code>/**
+* Helper Class for forecast.io webservice
+* Including moment.js for date help.
+*/
+
+function ForecastIO() {
+  PROXY_SCRIPT = '$xwiki.getDocument('Weather.Proxy').getURL('view')';
+
+  this.requestData = function(latitude, longitude, units) {
+    request_url = PROXY_SCRIPT + '?url=' + latitude + ',' + longitude + '&amp;units=' + (units == 'c' ? 'ca':'us') + '&amp;xpage=plain&amp;outputSyntax=plain';
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+      if(xhr.readyState==4 &amp;&amp; xhr.status==200) {
+        content = xhr.responseText;
+      }
+    }
+
+    xhr.open('GET', request_url, false);
+    xhr.send();
+
+    if(content != '' &amp;&amp; (content)) {
+      return JSON.parse(content);
+    } else {
+      return false;
+    }
+  }
+
+
+  /**
+  * Will return the current conditions
+  *
+  * @param float $latitude
+  * @param float $longitude
+  * @return \ForecastIOConditions|boolean
+  */
+
+  this.getCurrentConditions = function(latitude, longitude, units) {
+    var data = this.requestData(latitude, longitude, units);
+    if(data !== false) {
+      return new ForecastIOConditions(data.currently);
+    } else {
+      return false;
+    }
+  }
+
+
+  /**
+  * Will return conditions on hourly basis for today
+  *
+  * @param type $latitude
+  * @param type $longitude
+  * @return \ForecastIOConditions|boolean
+  */
+
+  this.getForecastToday = function(latitude, longitude, units) {
+    data = this.requestData(latitude, longitude, units);
+    if(data !== false) {
+      conditions = [];
+      today = moment().format("YYYY-MM-DD");
+
+      for(i=0; i&lt;data.hourly.data.length; i++) {
+        raw_data = data.hourly.data[i];
+        if(moment.unix(raw_data.time).format("YYYY-MM-DD") == today) {
+          conditions.push(new ForecastIOConditions(raw_data));
+        }
+      }
+
+      return conditions;
+    } else {
+      return false;
+    }
+  }
+
+
+  /**
+  * Will return daily conditions for next seven days
+  *
+  * @param float $latitude
+  * @param float $longitude
+  * @return \ForecastIOConditions|boolean
+  */
+
+  this.getForecastWeek = function(latitude, longitude, units) {
+    data = this.requestData(latitude, longitude, units);
+    if(data !== false) {
+      conditions = [];
+      for(i=0; i&lt;data.daily.data.length; i++) {
+        raw_data = data.daily.data[i];
+        conditions.push(new ForecastIOConditions(raw_data));
+      }
+      return conditions;
+    } else {
+        return false;
+    }
+  }
+}
+
+
+  /**
+  * Wrapper for get data by getters
+  */
+
+function ForecastIOConditions(raw_data) {
+  ForecastIOConditions.prototype = {
+    raw_data: raw_data
+  }
+
+
+  /**
+  * Will return the temperature
+  *
+  * @return String
+  */
+
+  this.getTemperature = function() {
+    return Math.round(parseFloat(raw_data.temperature));
+  }
+
+
+  /**
+  * Will return the apparent temperature
+  *
+  * @return Integer
+  */
+
+  this.getApparentTemperature = function() {
+    return Math.round(parseFloat(raw_data.apparentTemperature));
+  }
+
+
+  /**
+  * Get the summary of the conditions
+  *
+  * @return String
+  */
+
+  this.getSummary = function() {
+    return raw_data.summary;
+  }
+
+
+  /**
+  * Get the icon of the conditions
+  *
+  * @return String
+  */
+
+  this.getIcon = function() {
+    return raw_data.icon;
+  }
+
+
+  /**
+  * Get the time, when $format not set timestamp else formatted time
+  *
+  * @param String $format
+  * @return String
+  */
+
+  this.getTime = function(format) {
+    if(!format) {
+      return raw_data.time;
+    } else {
+      return moment.unix(raw_data.time).format(format);
+    }
+  }
+
+
+  /**
+  * Get the pressure
+  *
+  * @return String
+  */
+
+  this.getPressure = function() {
+    return raw_data.pressure;
+  }
+
+
+  /**
+  * get humidity
+  *
+  * @return String
+  */
+
+  this.getHumidity = function() {
+    return raw_data.humidity;
+  }
+
+
+  /**
+  * Get the wind speed
+  *
+  * @return String
+  */
+
+  this.getWindSpeed = function() {
+    return Math.round(parseFloat(raw_data.windSpeed));
+  }
+
+
+  /**
+  * Get wind direction
+  *
+  * @return type
+  */
+
+  this.getWindBearing = function() {
+    return raw_data.windBearing;
+  }
+
+
+  /**
+  * Get visibility
+  *
+  * @return type
+  */
+
+  this.getVisibility = function() {
+    return raw_data.visibility;
+  }
+
+
+  /**
+  * get precipitation type
+  *
+  * @return type
+  */
+
+  this.getPrecipitationType = function() {
+    return raw_data.precipType;
+  }
+
+
+  /**
+  * get the probability 0..1 of precipitation type
+  *
+  * @return type
+  */
+
+  this.getPrecipitationProbability = function() {
+    return raw_data.precipProbability;
+  }
+
+
+  /**
+  * Get the cloud cover 
+  *
+  * @return type
+  */
+
+  this.getCloudCover = function() {
+    return raw_data.cloudCover;
+  }
+
+
+  /**
+  * get the min temperature 
+  *
+  * only available for week forecast
+  *
+  * @return type
+  */
+
+  this.getMinTemperature = function() {
+    return Math.round(parseFloat(raw_data.temperatureMin));
+  }
+
+
+  /**
+  * get max temperature
+  *
+  * only available for week forecast
+  *
+  * @return type
+  */
+
+  this.getMaxTemperature = function() {
+    return Math.round(parseFloat(raw_data.temperatureMax));
+  }
+
+
+  /**
+  * get sunrise time
+  *
+  * only available for week forecast
+  *
+  * @return type
+  */
+
+  this.getSunrise = function() {
+    return raw_data.sunriseTime;
+  }
+
+
+  /**
+  * get sunset time
+  *
+  * only available for week forecast
+  *
+  * @return type
+  */
+
+  this.getSunset = function() {
+    return raw_data.sunsetTime;
+  }
+
+
+  /**
+  * get precipitation intensity
+  *
+  * @return number
+  */
+
+  this.getPrecipIntensity = function() {
+    return raw_data.precipIntensity;
+  }
+
+
+  /**
+  * get dew point
+  *
+  * @return number
+  */
+
+  this.getDewPoint = function() {
+    return raw_data.dewPoint;
+  }
+
+
+  /**
+  * get the ozone
+  *
+  * @return number
+  */
+
+  this.getOzone = function() {
+    return raw_data.ozone;
+  }
+}</code>
+</property>
+<property>
+<name>Forecast.io API</name>
+</property>
+<property>
+<parse>1</parse>
+</property>
+<property>
+<use>onDemand</use>
+</property>
+</object>
+<object>
+<class>
+<name>XWiki.JavaScriptExtension</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<cache>
+<cache>0</cache>
+<disabled>0</disabled>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>cache</name>
+<number>5</number>
+<prettyName>Caching policy</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>long|short|default|forbid</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</cache>
+<code>
+<disabled>0</disabled>
+<name>code</name>
+<number>2</number>
+<prettyName>Code</prettyName>
+<rows>20</rows>
+<size>50</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+</code>
+<name>
+<disabled>0</disabled>
+<name>name</name>
+<number>1</number>
+<prettyName>Name</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</name>
+<parse>
+<disabled>0</disabled>
+<displayFormType>select</displayFormType>
+<displayType>yesno</displayType>
+<name>parse</name>
+<number>4</number>
+<prettyName>Parse content</prettyName>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+</parse>
+<use>
+<cache>0</cache>
+<disabled>0</disabled>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>use</name>
+<number>3</number>
+<prettyName>Use this extension</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>currentPage=Always on this page|onDemand=On demand|always=Always on this wiki</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</use>
+</class>
+<name>Weather.Macro</name>
+<number>3</number>
+<className>XWiki.JavaScriptExtension</className>
+<guid>b5d641ba-c0dd-42ed-bfbe-ebc3479aadd0</guid>
+<property>
+<cache>long</cache>
+</property>
+<property>
+<code>(function(global) {
+  "use strict";
+
+  /* Set up a RequestAnimationFrame shim so we can animate efficiently FOR
+   * GREAT JUSTICE. */
+  var requestInterval, cancelInterval;
+
+  (function() {
+    var raf = global.requestAnimationFrame       ||
+              global.webkitRequestAnimationFrame ||
+              global.mozRequestAnimationFrame    ||
+              global.oRequestAnimationFrame      ||
+              global.msRequestAnimationFrame     ,
+        caf = global.cancelAnimationFrame        ||
+              global.webkitCancelAnimationFrame  ||
+              global.mozCancelAnimationFrame     ||
+              global.oCancelAnimationFrame       ||
+              global.msCancelAnimationFrame      ;
+
+    if(raf &amp;&amp; caf) {
+      requestInterval = function(fn, delay) {
+        var handle = {value: null};
+
+        function loop() {
+          handle.value = raf(loop);
+          fn();
+        }
+
+        loop();
+        return handle;
+      };
+
+      cancelInterval = function(handle) {
+        caf(handle.value);
+      };
+    }
+
+    else {
+      requestInterval = setInterval;
+      cancelInterval = clearInterval;
+    }
+  }());
+
+  /* Catmull-rom spline stuffs. */
+  /*
+  function upsample(n, spline) {
+    var polyline = [],
+        len = spline.length,
+        bx  = spline[0],
+        by  = spline[1],
+        cx  = spline[2],
+        cy  = spline[3],
+        dx  = spline[4],
+        dy  = spline[5],
+        i, j, ax, ay, px, qx, rx, sx, py, qy, ry, sy, t;
+
+    for(i = 6; i !== spline.length; i += 2) {
+      ax = bx;
+      bx = cx;
+      cx = dx;
+      dx = spline[i    ];
+      px = -0.5 * ax + 1.5 * bx - 1.5 * cx + 0.5 * dx;
+      qx =        ax - 2.5 * bx + 2.0 * cx - 0.5 * dx;
+      rx = -0.5 * ax            + 0.5 * cx           ;
+      sx =                   bx                      ;
+
+      ay = by;
+      by = cy;
+      cy = dy;
+      dy = spline[i + 1];
+      py = -0.5 * ay + 1.5 * by - 1.5 * cy + 0.5 * dy;
+      qy =        ay - 2.5 * by + 2.0 * cy - 0.5 * dy;
+      ry = -0.5 * ay            + 0.5 * cy           ;
+      sy =                   by                      ;
+
+      for(j = 0; j !== n; ++j) {
+        t = j / n;
+
+        polyline.push(
+          ((px * t + qx) * t + rx) * t + sx,
+          ((py * t + qy) * t + ry) * t + sy
+        );
+      }
+    }
+
+    polyline.push(
+      px + qx + rx + sx,
+      py + qy + ry + sy
+    );
+
+    return polyline;
+  }
+
+  function downsample(n, polyline) {
+    var len = 0,
+        i, dx, dy;
+
+    for(i = 2; i !== polyline.length; i += 2) {
+      dx = polyline[i    ] - polyline[i - 2];
+      dy = polyline[i + 1] - polyline[i - 1];
+      len += Math.sqrt(dx * dx + dy * dy);
+    }
+
+    len /= n;
+
+    var small = [],
+        target = len,
+        min = 0,
+        max, t;
+
+    small.push(polyline[0], polyline[1]);
+
+    for(i = 2; i !== polyline.length; i += 2) {
+      dx = polyline[i    ] - polyline[i - 2];
+      dy = polyline[i + 1] - polyline[i - 1];
+      max = min + Math.sqrt(dx * dx + dy * dy);
+
+      if(max &gt; target) {
+        t = (target - min) / (max - min);
+
+        small.push(
+          polyline[i - 2] + dx * t,
+          polyline[i - 1] + dy * t
+        );
+
+        target += len;
+      }
+
+      min = max;
+    }
+
+    small.push(polyline[polyline.length - 2], polyline[polyline.length - 1]);
+
+    return small;
+  }
+  */
+
+  /* Define skycon things. */
+  /* FIXME: I'm *really really* sorry that this code is so gross. Really, I am.
+   * I'll try to clean it up eventually! Promise! */
+  var KEYFRAME = 500,
+      STROKE = 0.08,
+      TWO_PI = 2.0 * Math.PI,
+      TWO_OVER_SQRT_2 = 2.0 / Math.sqrt(2);
+
+  function circle(ctx, x, y, r) {
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, TWO_PI, false);
+    ctx.fill();
+  }
+
+  function line(ctx, ax, ay, bx, by) {
+    ctx.beginPath();
+    ctx.moveTo(ax, ay);
+    ctx.lineTo(bx, by);
+    ctx.stroke();
+  }
+
+  function puff(ctx, t, cx, cy, rx, ry, rmin, rmax) {
+    var c = Math.cos(t * TWO_PI),
+        s = Math.sin(t * TWO_PI);
+
+    rmax -= rmin;
+
+    circle(
+      ctx,
+      cx - s * rx,
+      cy + c * ry + rmax * 0.5,
+      rmin + (1 - c * 0.5) * rmax
+    );
+  }
+
+  function puffs(ctx, t, cx, cy, rx, ry, rmin, rmax) {
+    var i;
+
+    for(i = 5; i--; )
+      puff(ctx, t + i / 5, cx, cy, rx, ry, rmin, rmax);
+  }
+
+  function cloud(ctx, t, cx, cy, cw, s, color) {
+    t /= 30000;
+
+    var a = cw * 0.21,
+        b = cw * 0.12,
+        c = cw * 0.24,
+        d = cw * 0.28;
+
+    ctx.fillStyle = color;
+    puffs(ctx, t, cx, cy, a, b, c, d);
+
+    ctx.globalCompositeOperation = 'destination-out';
+    puffs(ctx, t, cx, cy, a, b, c - s, d - s);
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
+  function sun(ctx, t, cx, cy, cw, s, color) {
+    t /= 120000;
+
+    var a = cw * 0.25 - s * 0.5,
+        b = cw * 0.32 + s * 0.5,
+        c = cw * 0.50 - s * 0.5,
+        i, p, cos, sin;
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = s;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, a, 0, TWO_PI, false);
+    ctx.stroke();
+
+    for(i = 8; i--; ) {
+      p = (t + i / 8) * TWO_PI;
+      cos = Math.cos(p);
+      sin = Math.sin(p);
+      line(ctx, cx + cos * b, cy + sin * b, cx + cos * c, cy + sin * c);
+    }
+  }
+
+  function moon(ctx, t, cx, cy, cw, s, color) {
+    t /= 15000;
+
+    var a = cw * 0.29 - s * 0.5,
+        b = cw * 0.05,
+        c = Math.cos(t * TWO_PI),
+        p = c * TWO_PI / -16;
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = s;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    cx += c * b;
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, a, p + TWO_PI / 8, p + TWO_PI * 7 / 8, false);
+    ctx.arc(cx + Math.cos(p) * a * TWO_OVER_SQRT_2, cy + Math.sin(p) * a * TWO_OVER_SQRT_2, a, p + TWO_PI * 5 / 8, p + TWO_PI * 3 / 8, true);
+    ctx.closePath();
+    ctx.stroke();
+  }
+
+  function rain(ctx, t, cx, cy, cw, s, color) {
+    t /= 1350;
+
+    var a = cw * 0.16,
+        b = TWO_PI * 11 / 12,
+        c = TWO_PI *  7 / 12,
+        i, p, x, y;
+
+    ctx.fillStyle = color;
+
+    for(i = 4; i--; ) {
+      p = (t + i / 4) % 1;
+      x = cx + ((i - 1.5) / 1.5) * (i === 1 || i === 2 ? -1 : 1) * a;
+      y = cy + p * p * cw;
+      ctx.beginPath();
+      ctx.moveTo(x, y - s * 1.5);
+      ctx.arc(x, y, s * 0.75, b, c, false);
+      ctx.fill();
+    }
+  }
+
+  function sleet(ctx, t, cx, cy, cw, s, color) {
+    t /= 750;
+
+    var a = cw * 0.1875,
+        b = TWO_PI * 11 / 12,
+        c = TWO_PI *  7 / 12,
+        i, p, x, y;
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = s * 0.5;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    for(i = 4; i--; ) {
+      p = (t + i / 4) % 1;
+      x = Math.floor(cx + ((i - 1.5) / 1.5) * (i === 1 || i === 2 ? -1 : 1) * a) + 0.5;
+      y = cy + p * cw;
+      line(ctx, x, y - s * 1.5, x, y + s * 1.5);
+    }
+  }
+
+  function snow(ctx, t, cx, cy, cw, s, color) {
+    t /= 3000;
+
+    var a  = cw * 0.16,
+        b  = s * 0.75,
+        u  = t * TWO_PI * 0.7,
+        ux = Math.cos(u) * b,
+        uy = Math.sin(u) * b,
+        v  = u + TWO_PI / 3,
+        vx = Math.cos(v) * b,
+        vy = Math.sin(v) * b,
+        w  = u + TWO_PI * 2 / 3,
+        wx = Math.cos(w) * b,
+        wy = Math.sin(w) * b,
+        i, p, x, y;
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = s * 0.5;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    for(i = 4; i--; ) {
+      p = (t + i / 4) % 1;
+      x = cx + Math.sin((p + i / 4) * TWO_PI) * a;
+      y = cy + p * cw;
+
+      line(ctx, x - ux, y - uy, x + ux, y + uy);
+      line(ctx, x - vx, y - vy, x + vx, y + vy);
+      line(ctx, x - wx, y - wy, x + wx, y + wy);
+    }
+  }
+
+  function fogbank(ctx, t, cx, cy, cw, s, color) {
+    t /= 30000;
+
+    var a = cw * 0.21,
+        b = cw * 0.06,
+        c = cw * 0.21,
+        d = cw * 0.28;
+
+    ctx.fillStyle = color;
+    puffs(ctx, t, cx, cy, a, b, c, d);
+
+    ctx.globalCompositeOperation = 'destination-out';
+    puffs(ctx, t, cx, cy, a, b, c - s, d - s);
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
+  /*
+  var WIND_PATHS = [
+        downsample(63, upsample(8, [
+          -1.00, -0.28,
+          -0.75, -0.18,
+          -0.50,  0.12,
+          -0.20,  0.12,
+          -0.04, -0.04,
+          -0.07, -0.18,
+          -0.19, -0.18,
+          -0.23, -0.05,
+          -0.12,  0.11,
+           0.02,  0.16,
+           0.20,  0.15,
+           0.50,  0.07,
+           0.75,  0.18,
+           1.00,  0.28
+        ])),
+        downsample(31, upsample(16, [
+          -1.00, -0.10,
+          -0.75,  0.00,
+          -0.50,  0.10,
+          -0.25,  0.14,
+           0.00,  0.10,
+           0.25,  0.00,
+           0.50, -0.10,
+           0.75, -0.14,
+           1.00, -0.10
+        ]))
+      ];
+  */
+
+  var WIND_PATHS = [
+        [
+          -0.7500, -0.1800, -0.7219, -0.1527, -0.6971, -0.1225,
+          -0.6739, -0.0910, -0.6516, -0.0588, -0.6298, -0.0262,
+          -0.6083,  0.0065, -0.5868,  0.0396, -0.5643,  0.0731,
+          -0.5372,  0.1041, -0.5033,  0.1259, -0.4662,  0.1406,
+          -0.4275,  0.1493, -0.3881,  0.1530, -0.3487,  0.1526,
+          -0.3095,  0.1488, -0.2708,  0.1421, -0.2319,  0.1342,
+          -0.1943,  0.1217, -0.1600,  0.1025, -0.1290,  0.0785,
+          -0.1012,  0.0509, -0.0764,  0.0206, -0.0547, -0.0120,
+          -0.0378, -0.0472, -0.0324, -0.0857, -0.0389, -0.1241,
+          -0.0546, -0.1599, -0.0814, -0.1876, -0.1193, -0.1964,
+          -0.1582, -0.1935, -0.1931, -0.1769, -0.2157, -0.1453,
+          -0.2290, -0.1085, -0.2327, -0.0697, -0.2240, -0.0317,
+          -0.2064,  0.0033, -0.1853,  0.0362, -0.1613,  0.0672,
+          -0.1350,  0.0961, -0.1051,  0.1213, -0.0706,  0.1397,
+          -0.0332,  0.1512,  0.0053,  0.1580,  0.0442,  0.1624,
+           0.0833,  0.1636,  0.1224,  0.1615,  0.1613,  0.1565,
+           0.1999,  0.1500,  0.2378,  0.1402,  0.2749,  0.1279,
+           0.3118,  0.1147,  0.3487,  0.1015,  0.3858,  0.0892,
+           0.4236,  0.0787,  0.4621,  0.0715,  0.5012,  0.0702,
+           0.5398,  0.0766,  0.5768,  0.0890,  0.6123,  0.1055,
+           0.6466,  0.1244,  0.6805,  0.1440,  0.7147,  0.1630,
+           0.7500,  0.1800
+        ],
+        [
+          -0.7500,  0.0000, -0.7033,  0.0195, -0.6569,  0.0399,
+          -0.6104,  0.0600, -0.5634,  0.0789, -0.5155,  0.0954,
+          -0.4667,  0.1089, -0.4174,  0.1206, -0.3676,  0.1299,
+          -0.3174,  0.1365, -0.2669,  0.1398, -0.2162,  0.1391,
+          -0.1658,  0.1347, -0.1157,  0.1271, -0.0661,  0.1169,
+          -0.0170,  0.1046,  0.0316,  0.0903,  0.0791,  0.0728,
+           0.1259,  0.0534,  0.1723,  0.0331,  0.2188,  0.0129,
+           0.2656, -0.0064,  0.3122, -0.0263,  0.3586, -0.0466,
+           0.4052, -0.0665,  0.4525, -0.0847,  0.5007, -0.1002,
+           0.5497, -0.1130,  0.5991, -0.1240,  0.6491, -0.1325,
+           0.6994, -0.1380,  0.7500, -0.1400
+        ]
+      ],
+      WIND_OFFSETS = [
+        {start: 0.36, end: 0.11},
+        {start: 0.56, end: 0.16}
+      ];
+
+  function leaf(ctx, t, x, y, cw, s, color) {
+    var a = cw / 8,
+        b = a / 3,
+        c = 2 * b,
+        d = (t % 1) * TWO_PI,
+        e = Math.cos(d),
+        f = Math.sin(d);
+
+    ctx.fillStyle = color;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = s;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    ctx.beginPath();
+    ctx.arc(x        , y        , a, d          , d + Math.PI, false);
+    ctx.arc(x - b * e, y - b * f, c, d + Math.PI, d          , false);
+    ctx.arc(x + c * e, y + c * f, b, d + Math.PI, d          , true );
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.fill();
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.stroke();
+  }
+
+  function swoosh(ctx, t, cx, cy, cw, s, index, total, color) {
+    t /= 2500;
+
+    var path = WIND_PATHS[index],
+        a = (t + index - WIND_OFFSETS[index].start) % total,
+        c = (t + index - WIND_OFFSETS[index].end  ) % total,
+        e = (t + index                            ) % total,
+        b, d, f, i;
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = s;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    if(a &lt; 1) {
+      ctx.beginPath();
+
+      a *= path.length / 2 - 1;
+      b  = Math.floor(a);
+      a -= b;
+      b *= 2;
+      b += 2;
+
+      ctx.moveTo(
+        cx + (path[b - 2] * (1 - a) + path[b    ] * a) * cw,
+        cy + (path[b - 1] * (1 - a) + path[b + 1] * a) * cw
+      );
+
+      if(c &lt; 1) {
+        c *= path.length / 2 - 1;
+        d  = Math.floor(c);
+        c -= d;
+        d *= 2;
+        d += 2;
+
+        for(i = b; i !== d; i += 2)
+          ctx.lineTo(cx + path[i] * cw, cy + path[i + 1] * cw);
+
+        ctx.lineTo(
+          cx + (path[d - 2] * (1 - c) + path[d    ] * c) * cw,
+          cy + (path[d - 1] * (1 - c) + path[d + 1] * c) * cw
+        );
+      }
+
+      else
+        for(i = b; i !== path.length; i += 2)
+          ctx.lineTo(cx + path[i] * cw, cy + path[i + 1] * cw);
+
+      ctx.stroke();
+    }
+
+    else if(c &lt; 1) {
+      ctx.beginPath();
+
+      c *= path.length / 2 - 1;
+      d  = Math.floor(c);
+      c -= d;
+      d *= 2;
+      d += 2;
+
+      ctx.moveTo(cx + path[0] * cw, cy + path[1] * cw);
+
+      for(i = 2; i !== d; i += 2)
+        ctx.lineTo(cx + path[i] * cw, cy + path[i + 1] * cw);
+
+      ctx.lineTo(
+        cx + (path[d - 2] * (1 - c) + path[d    ] * c) * cw,
+        cy + (path[d - 1] * (1 - c) + path[d + 1] * c) * cw
+      );
+
+      ctx.stroke();
+    }
+
+    if(e &lt; 1) {
+      e *= path.length / 2 - 1;
+      f  = Math.floor(e);
+      e -= f;
+      f *= 2;
+      f += 2;
+
+      leaf(
+        ctx,
+        t,
+        cx + (path[f - 2] * (1 - e) + path[f    ] * e) * cw,
+        cy + (path[f - 1] * (1 - e) + path[f + 1] * e) * cw,
+        cw,
+        s,
+        color
+      );
+    }
+  }
+
+  var Skycons = function(opts) {
+        this.list        = [];
+        this.interval    = null;
+        this.color       = opts &amp;&amp; opts.color ? opts.color : "black";
+        this.resizeClear = !!(opts &amp;&amp; opts.resizeClear);
+      };
+
+  Skycons.CLEAR_DAY = function(ctx, t, color) {
+    var w = ctx.canvas.width,
+        h = ctx.canvas.height,
+        s = Math.min(w, h);
+
+    sun(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, color);
+  };
+
+  Skycons.CLEAR_NIGHT = function(ctx, t, color) {
+    var w = ctx.canvas.width,
+        h = ctx.canvas.height,
+        s = Math.min(w, h);
+
+    moon(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, color);
+  };
+
+  Skycons.PARTLY_CLOUDY_DAY = function(ctx, t, color) {
+    var w = ctx.canvas.width,
+        h = ctx.canvas.height,
+        s = Math.min(w, h);
+
+    sun(ctx, t, w * 0.625, h * 0.375, s * 0.75, s * STROKE, color);
+    cloud(ctx, t, w * 0.375, h * 0.625, s * 0.75, s * STROKE, color);
+  };
+
+  Skycons.PARTLY_CLOUDY_NIGHT = function(ctx, t, color) {
+    var w = ctx.canvas.width,
+        h = ctx.canvas.height,
+        s = Math.min(w, h);
+
+    moon(ctx, t, w * 0.667, h * 0.375, s * 0.75, s * STROKE, color);
+    cloud(ctx, t, w * 0.375, h * 0.625, s * 0.75, s * STROKE, color);
+  };
+
+  Skycons.CLOUDY = function(ctx, t, color) {
+    var w = ctx.canvas.width,
+        h = ctx.canvas.height,
+        s = Math.min(w, h);
+
+    cloud(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, color);
+  };
+
+  Skycons.RAIN = function(ctx, t, color) {
+    var w = ctx.canvas.width,
+        h = ctx.canvas.height,
+        s = Math.min(w, h);
+
+    rain(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
+    cloud(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
+  };
+
+  Skycons.SLEET = function(ctx, t, color) {
+    var w = ctx.canvas.width,
+        h = ctx.canvas.height,
+        s = Math.min(w, h);
+
+    sleet(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
+    cloud(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
+  };
+
+  Skycons.SNOW = function(ctx, t, color) {
+    var w = ctx.canvas.width,
+        h = ctx.canvas.height,
+        s = Math.min(w, h);
+
+    snow(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
+    cloud(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
+  };
+
+  Skycons.WIND = function(ctx, t, color) {
+    var w = ctx.canvas.width,
+        h = ctx.canvas.height,
+        s = Math.min(w, h);
+
+    swoosh(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, 0, 2, color);
+    swoosh(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, 1, 2, color);
+  };
+
+  Skycons.FOG = function(ctx, t, color) {
+    var w = ctx.canvas.width,
+        h = ctx.canvas.height,
+        s = Math.min(w, h),
+        k = s * STROKE;
+
+    fogbank(ctx, t, w * 0.5, h * 0.32, s * 0.75, k, color);
+
+    t /= 5000;
+
+    var a = Math.cos((t       ) * TWO_PI) * s * 0.02,
+        b = Math.cos((t + 0.25) * TWO_PI) * s * 0.02,
+        c = Math.cos((t + 0.50) * TWO_PI) * s * 0.02,
+        d = Math.cos((t + 0.75) * TWO_PI) * s * 0.02,
+        n = h * 0.936,
+        e = Math.floor(n - k * 0.5) + 0.5,
+        f = Math.floor(n - k * 2.5) + 0.5;
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = k;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    line(ctx, a + w * 0.2 + k * 0.5, e, b + w * 0.8 - k * 0.5, e);
+    line(ctx, c + w * 0.2 + k * 0.5, f, d + w * 0.8 - k * 0.5, f);
+  };
+
+  Skycons.prototype = {
+    add: function(el, draw) {
+      var obj;
+
+      if(typeof el === "string")
+        el = document.getElementById(el);
+
+      // Does nothing if canvas name doesn't exists
+      if(el === null)
+        return;
+
+      if(typeof draw === "string") {
+        draw = draw.toUpperCase().replace(/-/g, "_");
+        draw = Skycons.hasOwnProperty(draw) ? Skycons[draw] : null;
+      }
+
+      // Does nothing if the draw function isn't actually a function
+      if(typeof draw !== "function")
+        return;
+
+      obj = {
+        element: el,
+        context: el.getContext("2d"),
+        drawing: draw
+      };
+
+      this.list.push(obj);
+      this.draw(obj, KEYFRAME);
+    },
+    set: function(el, draw) {
+      var i;
+
+      if(typeof el === "string")
+        el = document.getElementById(el);
+
+      for(i = this.list.length; i--; )
+        if(this.list[i].element === el) {
+          this.list[i].drawing = draw;
+          this.draw(this.list[i], KEYFRAME);
+          return;
+        }
+
+      this.add(el, draw);
+    },
+    remove: function(el) {
+      var i;
+
+      if(typeof el === "string")
+        el = document.getElementById(el);
+
+      for(i = this.list.length; i--; )
+        if(this.list[i].element === el) {
+          this.list.splice(i, 1);
+          return;
+        }
+    },
+    draw: function(obj, time) {
+      var canvas = obj.context.canvas;
+
+      if(this.resizeClear)
+        canvas.width = canvas.width;
+
+      else
+        obj.context.clearRect(0, 0, canvas.width, canvas.height);
+
+      obj.drawing(obj.context, time, this.color);
+    },
+    play: function() {
+      var self = this;
+
+      this.pause();
+      this.interval = requestInterval(function() {
+        var now = Date.now(),
+            i;
+
+        for(i = self.list.length; i--; )
+          self.draw(self.list[i], now);
+      }, 1000 / 60);
+    },
+    pause: function() {
+      var i;
+
+      if(this.interval) {
+        cancelInterval(this.interval);
+        this.interval = null;
+      }
+    }
+  };
+
+  global.Skycons = Skycons;
+}(this));
+</code></property><property><name>Skycons</name>
+</property>
+<property>
+<parse></parse>
+</property>
+<property>
+<use>onDemand</use>
+</property>
+</object>
+<object>
+<class>
+<name>XWiki.JavaScriptExtension</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<cache>
+<cache>0</cache>
+<disabled>0</disabled>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>cache</name>
+<number>5</number>
+<prettyName>Caching policy</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>long|short|default|forbid</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</cache>
+<code>
+<disabled>0</disabled>
+<name>code</name>
+<number>2</number>
+<prettyName>Code</prettyName>
+<rows>20</rows>
+<size>50</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+</code>
+<name>
+<disabled>0</disabled>
+<name>name</name>
+<number>1</number>
+<prettyName>Name</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</name>
+<parse>
+<disabled>0</disabled>
+<displayFormType>select</displayFormType>
+<displayType>yesno</displayType>
+<name>parse</name>
+<number>4</number>
+<prettyName>Parse content</prettyName>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+</parse>
+<use>
+<cache>0</cache>
+<disabled>0</disabled>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>use</name>
+<number>3</number>
+<prettyName>Use this extension</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>currentPage=Always on this page|onDemand=On demand|always=Always on this wiki</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</use>
+</class>
+<name>Weather.Macro</name>
+<number>4</number>
+<className>XWiki.JavaScriptExtension</className>
+<guid>6e9a8936-9b23-4182-8136-b7676c4947e8</guid>
+<property>
+<cache>long</cache>
+</property>
+<property>
+<code>var params    = $('weatherParams').childElements();
+var coords    = params[0].innerHTML.split(',');
+var units     = params[1].innerHTML;
+var distUnits = (units == 'c' ? 'km':'mi');
+
+var latitude  = coords[0];
+var longitude = coords[1];
+
+var forecast  = new ForecastIO();
+var skycons   = new Skycons({"color": "grey"});
+
+var condition        = forecast.getCurrentConditions(latitude, longitude, units);
+var conditions_today = forecast.getForecastToday(latitude, longitude, units);
+var conditions_week  = forecast.getForecastWeek(latitude, longitude, units);
+
+if ($('weatherPanel') != undefined)
+{
+  var panel     = '';
+
+  panel += '&lt;div class="currentConditions"&gt;';
+  panel += '  &lt;div class="less"&gt;';
+  panel += '    &lt;div&gt;&lt;b&gt;Right now&lt;/b&gt; +&lt;/div&gt;';
+  panel += '    &lt;div class="item big"&gt;&lt;canvas id="pan_currentConditionsIcon" width="36" height="36"&gt;&lt;/canvas&gt; ' + condition.getTemperature() + '°&lt;/div&gt;';
+  panel += '    &lt;div class="item right"&gt;' + condition.getSummary() + '&lt;br/&gt; Feels like ' + condition.getApparentTemperature() + '°&lt;/div&gt;';
+  panel += '  &lt;/div&gt;';
+  panel += '  &lt;div class="more hide"&gt;';
+  panel += '      &lt;div&gt;&lt;b&gt;Right now&lt;/b&gt; -&lt;/div&gt;';
+  panel += '      &lt;div class="wind"&gt;';
+  panel += '        &lt;span class="label"&gt;Wind:&lt;/span&gt;';
+  panel += '        &lt;span class="value"&gt;' + condition.getWindSpeed() + ' ' + distUnits + '/h&lt;/span&gt;';
+  panel += '      &lt;/div&gt;';
+  panel += '      &lt;div class="humidity"&gt;';
+  panel += '        &lt;span class="label"&gt;Humidity:&lt;/span&gt;';
+  panel += '        &lt;span class="value"&gt;' + condition.getHumidity() + '%&lt;/span&gt;';
+  panel += '      &lt;/div&gt;';
+  panel += '      &lt;div class="dewpoint"&gt;';
+  panel += '        &lt;span class="label"&gt;Dew Pt:&lt;/span&gt;';
+  panel += '        &lt;span class="value"&gt;' + condition.getDewPoint() + '&lt;/span&gt;';
+  panel += '      &lt;/div&gt;';
+  panel += '      &lt;div class="visibility"&gt;';
+  panel += '        &lt;span class="label"&gt;Visibility:&lt;/span&gt;';
+  panel += '        &lt;span class="value"&gt;' + condition.getVisibility() + ' ' + distUnits + '&lt;/span&gt;';
+  panel += '      &lt;/div&gt;';
+  panel += '      &lt;div class="pressure"&gt;';
+  panel += '        &lt;span class="label"&gt;Pressure:&lt;/span&gt;';
+  panel += '        &lt;span class="value"&gt;' + condition.getPressure() + ' mb&lt;/span&gt;';
+  panel += '      &lt;/div&gt;';
+  panel += '  &lt;/div&gt;';
+  panel += '&lt;/div&gt;';
+  panel += '&lt;div style="clear: both;"&gt;';
+  panel += '    &lt;div class="item"&gt;&lt;b&gt;Next hour&lt;/b&gt;&lt;br/&gt;' + conditions_today[0].getSummary() + '&lt;/div&gt;';
+  panel += '    &lt;div class="item right"&gt;&lt;b&gt;Next 24 hours&lt;/b&gt;&lt;br/&gt;' + conditions_today[conditions_today.length-1].getSummary() + '&lt;br/&gt;&lt;br/&gt;&lt;/div&gt;';
+  panel += '&lt;/div&gt;';
+
+  // Daily conditions for today and the next 4 days
+  panel += '&lt;div class="forecast"&gt;';
+  for(i = 0; i &lt; conditions_week.length-3; i++)
+  {
+    panel += '  &lt;div class="forecastItem"&gt;'
+    panel += '    ' + conditions_week[i].getTime('ddd') + '&lt;br/&gt;';
+    panel += '    &lt;canvas id="pan_dayIcon' + i + '" width="20" height="20"&gt;&lt;/canvas&gt;&lt;br/&gt;';
+    panel += '    &lt;div class="info"&gt;' + conditions_week[i].getMaxTemperature() + '°&lt;/div&gt;';
+    panel += '    &lt;div class="info"&gt;' + conditions_week[i].getMinTemperature() + '°&lt;/div&gt;';
+    panel += '    &lt;div class="info"&gt;' + conditions_week[i].getWindSpeed() + '&lt;br/&gt;&lt;span&gt;' + distUnits + '/h&lt;/span&gt;&lt;/div&gt;';
+    panel += '  &lt;/div&gt;';
+  }
+  panel += '&lt;/div&gt;';
+
+  $('weatherPanel').innerHTML = panel;
+
+  $$('#weatherPanel .currentConditions').invoke('observe', 'click', function (event)
+  {
+    $$('#weatherPanel .currentConditions').each(function (e)
+    {
+      e.childElements().each(function (c)
+      {
+        c.toggleClassName('hide')
+      });
+    });
+  });
+
+  skycons.add('pan_currentConditionsIcon', '' + condition.getIcon());
+
+  for(i = 0; i &lt; conditions_week.length-3; i++)
+    skycons.add('pan_dayIcon' + i, '' + conditions_week[i].getIcon());
+}
+
+if ($('weatherPage') != undefined)
+{
+  var page = '';
+
+  page += '&lt;div class="currentConditions"&gt;';
+  page += '  &lt;canvas id="pag_currentConditionsIcon" width="64" height="64"&gt;&lt;/canvas&gt; &lt;span&gt;' + condition.getTemperature() + '°&lt;/span&gt;';
+  page += '  &lt;div&gt;' + condition.getSummary() + ' · Feels like ' + condition.getApparentTemperature() + '°&lt;/div&gt;';
+  page += '&lt;/div&gt;';
+
+  page += '&lt;div class="details"&gt;';
+  page += '  &lt;div class="detailsItem"&gt;';
+  page += '    &lt;div class="label"&gt;Wind&lt;/div&gt;';
+  page += '    &lt;div class="value"&gt;' + condition.getWindSpeed() + ' ' + distUnits + '/h&lt;/div&gt;';
+  page += '  &lt;/div&gt;';
+  page += '  &lt;div class="detailsItem"&gt;';
+  page += '    &lt;div class="label"&gt;Humidity&lt;/div&gt;';
+  page += '    &lt;div class="value"&gt;' + condition.getHumidity() + '%&lt;/div&gt;';
+  page += '  &lt;/div&gt;';
+  page += '  &lt;div class="detailsItem"&gt;';
+  page += '    &lt;div class="label"&gt;Dew point&lt;/div&gt;';
+  page += '    &lt;div class="value"&gt;' + condition.getDewPoint() + '&lt;/div&gt;';
+  page += '  &lt;/div&gt;';
+  page += '  &lt;div class="detailsItem"&gt;';
+  page += '    &lt;div class="label"&gt;Visibility&lt;/div&gt;';
+  page += '    &lt;div class="value"&gt;' + condition.getVisibility() + ' ' + distUnits + '&lt;/div&gt;';
+  page += '  &lt;/div&gt;';
+  page += '  &lt;div class="detailsItem"&gt;';
+  page += '    &lt;div class="label"&gt;Pressure&lt;/div&gt;';
+  page += '    &lt;div class="value"&gt;' + condition.getPressure() + ' mb&lt;/div&gt;';
+  page += '  &lt;/div&gt;';
+  page += '&lt;/div&gt;';
+
+  // Daily conditions for today and the next 4 days
+  page += '&lt;div class="section"&gt;Hourly forecast &lt;span&gt;+&lt;/span&gt;&lt;/div&gt;';
+  page += '&lt;div class="forecast hide"&gt;';
+  for(i = 0; i &lt; conditions_today.length; i++)
+  {
+    page += '  &lt;div class="forecastItem"&gt;'
+    page += '    &lt;div class="info left"&gt;' + conditions_today[i].getTime('HH:mm') + '&lt;/div&gt;';
+    page += '    &lt;div class="info left"&gt;&lt;canvas id="pag_hourIcon' + i + '" width="24" height="24"&gt;&lt;/canvas&gt;&lt;/div&gt;';
+    page += '    &lt;div class="info left"&gt;' + conditions_today[i].getSummary() + '&lt;/div&gt;';
+    page += '    &lt;div class="info right"&gt;' + conditions_today[i].getTemperature() + '°&lt;/div&gt;';
+    page += '  &lt;/div&gt;';
+  }
+  page += '&lt;/div&gt;';
+
+  // Daily conditions for today and the next 4 days
+  page += '&lt;div class="section"&gt;Daily forecast&lt;/div&gt;';
+  page += '&lt;div class="forecast"&gt;';
+  for(i = 0; i &lt; conditions_week.length-3; i++)
+  {
+    page += '  &lt;div class="forecastItem"&gt;'
+    page += '    &lt;div class="info left"&gt;' + conditions_week[i].getTime('ddd') + '&lt;/div&gt;';
+    page += '    &lt;div class="info left"&gt;&lt;canvas id="pag_dayIcon' + i + '" width="24" height="24"&gt;&lt;/canvas&gt;&lt;/div&gt;';
+    page += '    &lt;div class="info left"&gt;' + conditions_week[i].getSummary() + '&lt;/div&gt;';
+    page += '    &lt;div class="info right"&gt;' + conditions_week[i].getMaxTemperature() + '° / '+ conditions_week[i].getMinTemperature() + '°&lt;/div&gt;';
+    page += '  &lt;/div&gt;';
+  }
+  panel += '&lt;/div&gt;';
+
+  $('weatherPage').innerHTML = page;
+
+  $$('#weatherPage .section').invoke('on', 'click', function (event, el)
+  {
+    if (el.innerHTML.indexOf('+') != -1)
+      el.innerHTML = el.innerHTML.replace('+', '-');
+    else
+      el.innerHTML = el.innerHTML.replace('-', '+');
+
+    if (el.innerHTML.indexOf('+') != -1 || el.innerHTML.indexOf('-') != -1)
+      el.next().toggleClassName('hide');
+  });
+
+  skycons.add('pag_currentConditionsIcon', '' + condition.getIcon());
+
+  for(i = 0; i &lt; conditions_today.length; i++)
+    skycons.add('pag_hourIcon' + i, '' + conditions_today[i].getIcon());
+
+  for(i = 0; i &lt; conditions_week.length-3; i++)
+    skycons.add('pag_dayIcon' + i, '' + conditions_week[i].getIcon());
+}
+
+// Add the weather icons to their respective places
+if ($('weatherPanel') != undefined || $('weatherPage') != undefined)
+  skycons.play();</code>
+</property>
+<property>
+<name>Displayer</name>
+</property>
+<property>
+<parse>1</parse>
+</property>
+<property>
+<use>onDemand</use>
+</property>
+</object>
+<object>
+<class>
+<name>XWiki.StyleSheetExtension</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<cache>
+<cache>0</cache>
+<disabled>0</disabled>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>cache</name>
+<number>5</number>
+<prettyName>Caching policy</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>long|short|default|forbid</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</cache>
+<code>
+<disabled>0</disabled>
+<name>code</name>
+<number>2</number>
+<prettyName>Code</prettyName>
+<rows>20</rows>
+<size>50</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+</code>
+<name>
+<disabled>0</disabled>
+<name>name</name>
+<number>1</number>
+<prettyName>Name</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</name>
+<parse>
+<disabled>0</disabled>
+<displayFormType>select</displayFormType>
+<displayType>yesno</displayType>
+<name>parse</name>
+<number>4</number>
+<prettyName>Parse content</prettyName>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+</parse>
+<use>
+<cache>0</cache>
+<disabled>0</disabled>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>use</name>
+<number>3</number>
+<prettyName>Use this extension</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>currentPage=Always on this page|onDemand=On demand|always=Always on this wiki</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</use>
+</class>
+<name>Weather.Macro</name>
+<number>0</number>
+<className>XWiki.StyleSheetExtension</className>
+<guid>177805df-d6cb-4737-a2f0-8f86ce59acfa</guid>
+<property>
+<cache>long</cache>
+</property>
+<property>
+<code>/*
+ * Weather params
+ */
+#weatherParams
+{
+  display: none;
+}
+
+
+/*
+ * Weather panel
+ */
+#weatherPanel
+{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#weatherPanel .hide
+{
+  display: none;
+}
+
+#weatherPanel .label
+{
+  width: 65px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+#weatherPanel .currentConditions .more
+{
+  margin-bottom: 10px;
+}
+
+#weatherPanel .container, #weatherPanel .currentConditions .less, #weatherPanel .currentConditions .more
+{
+  clear: both;
+}
+
+#weatherPanel .big
+{
+  height: 50px;
+  line-height: 40px;
+  font-size: 20px;
+}
+
+#weatherPanel .item
+{
+  width: 50%;
+  float: left;
+  vertical-align: middle;
+}
+
+#weatherPanel .center
+{
+  text-align: center;
+}
+
+#weatherPanel .right
+{
+  text-align: right;
+}
+
+#weatherPanel .forecast
+{
+  clear: both;
+}
+
+#weatherPanel .forecastItem
+{
+  width: 20%;
+  float: left;
+  text-align: center;
+}
+
+#weatherPanel .forecastItem img
+{
+  width: 30px;
+  height: 30px;
+}
+
+#weatherPanel .forecastItem .info
+{
+  border-top: solid 1px #f5f5f5;
+  padding: 5px;
+}
+
+#weatherPanel .forecastItem .info span
+{
+  font-size: 80%;
+}
+
+
+/*
+ * Weather page
+ */
+#weatherPage .forecast
+{
+  clear: both;
+}
+
+#weatherPage .forecastItem
+{
+  display: block;
+  height: 24px;
+  width: 100%;
+  clear: both;
+  border-top: solid 1px #f5f5f5;
+}
+
+#weatherPage .forecastItem .info
+{
+  padding: 5px;
+}
+
+#weatherPage .left
+{
+  float: left;
+}
+
+#weatherPage .right
+{
+  float: right;
+}
+
+#weatherPage .hide
+{
+  display: none;
+}
+
+#weatherPage .section
+{
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  clear: both;
+}
+
+#weatherPage .section span
+{
+  font-weight: normal;
+}
+
+#weatherPage .currentConditions
+{
+  margin-bottom: 20px;
+}
+
+#weatherPage .currentConditions span
+{
+  font-size: 50px;
+  line-height: 64px;
+}
+
+#weatherPage .details
+{
+  height: 40px;
+  width: 100%;
+  clear: both;
+  
+}
+
+#weatherPage .details .detailsItem
+{
+  width: 20%;
+  float: left;
+}
+
+#weatherPage .details .detailsItem .label
+{
+  font-weight: bold;
+}</code>
+</property>
+<property>
+<name></name>
+</property>
+<property>
+<parse></parse>
+</property>
+<property>
+<use>onDemand</use>
+</property>
+</object>
+<object>
+<class>
+<name>XWiki.WikiMacroClass</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<code>
+<disabled>0</disabled>
+<name>code</name>
+<number>9</number>
+<prettyName>Macro code</prettyName>
+<rows>20</rows>
+<size>40</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+</code>
+<contentDescription>
+<disabled>0</disabled>
+<name>contentDescription</name>
+<number>8</number>
+<prettyName>Content description (Not applicable for "No content" type)</prettyName>
+<rows>5</rows>
+<size>40</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+</contentDescription>
+<contentType>
+<cache>0</cache>
+<disabled>0</disabled>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>contentType</name>
+<number>7</number>
+<prettyName>Macro content type</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator>|</separator>
+<separators>|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>Optional|Mandatory|No content</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</contentType>
+<defaultCategory>
+<disabled>0</disabled>
+<name>defaultCategory</name>
+<number>4</number>
+<prettyName>Default category</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</defaultCategory>
+<description>
+<disabled>0</disabled>
+<name>description</name>
+<number>3</number>
+<prettyName>Macro description</prettyName>
+<rows>5</rows>
+<size>40</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+</description>
+<id>
+<disabled>0</disabled>
+<name>id</name>
+<number>1</number>
+<prettyName>Macro id</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</id>
+<name>
+<disabled>0</disabled>
+<name>name</name>
+<number>2</number>
+<prettyName>Macro name</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</name>
+<supportsInlineMode>
+<disabled>0</disabled>
+<displayFormType>select</displayFormType>
+<displayType>yesno</displayType>
+<name>supportsInlineMode</name>
+<number>5</number>
+<prettyName>Supports inline mode</prettyName>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+</supportsInlineMode>
+<visibility>
+<cache>0</cache>
+<disabled>0</disabled>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>visibility</name>
+<number>6</number>
+<prettyName>Macro visibility</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator>|</separator>
+<separators>|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>Current User|Current Wiki|Global</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</visibility>
+</class>
+<name>Weather.Macro</name>
+<number>0</number>
+<className>XWiki.WikiMacroClass</className>
+<guid>de068a1e-1873-48b6-9b30-a34126d9ab72</guid>
+<property>
+<code>{{velocity}}
+  #set ($ok = $xwiki.jsx.use('Weather.Macro'))
+  #set ($ok = $xwiki.ssx.use('Weather.Macro'))
+  #set ($displayer = $xcontext.macro.params.displayer)
+##
+  #if($displayer == 'panel')
+    {{html}}&lt;div id="weatherPanel"&gt;Loading..&lt;/div&gt;{{/html}}
+  #else
+    {{html}}&lt;div id="weatherPage"&gt;Loading..&lt;/div&gt;{{/html}}
+  #end
+##
+
+  {{html}}
+    &lt;div id="weatherParams"&gt;
+      &lt;div class="location"&gt;$xcontext.macro.params.location&lt;/div&gt;
+      &lt;div class="units"&gt;$xcontext.macro.params.units&lt;/div&gt;
+    &lt;/div&gt;
+  {{/html}}
+{{/velocity}}</code>
+</property>
+<property>
+<contentDescription></contentDescription>
+</property>
+<property>
+<contentType>Optional</contentType>
+</property>
+<property>
+<defaultCategory></defaultCategory>
+</property>
+<property>
+<description></description>
+</property>
+<property>
+<id>weather</id>
+</property>
+<property>
+<name>Weather</name>
+</property>
+<property>
+<supportsInlineMode>1</supportsInlineMode>
+</property>
+<property>
+<visibility>Current Wiki</visibility>
+</property>
+</object>
+<object>
+<class>
+<name>XWiki.WikiMacroParameterClass</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<defaultValue>
+<disabled>0</disabled>
+<name>defaultValue</name>
+<number>4</number>
+<prettyName>Parameter default value</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</defaultValue>
+<description>
+<disabled>0</disabled>
+<name>description</name>
+<number>2</number>
+<prettyName>Parameter description</prettyName>
+<rows>5</rows>
+<size>40</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+</description>
+<mandatory>
+<disabled>0</disabled>
+<displayFormType>select</displayFormType>
+<displayType>yesno</displayType>
+<name>mandatory</name>
+<number>3</number>
+<prettyName>Parameter mandatory</prettyName>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+</mandatory>
+<name>
+<disabled>0</disabled>
+<name>name</name>
+<number>1</number>
+<prettyName>Parameter name</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</name>
+</class>
+<name>Weather.Macro</name>
+<number>0</number>
+<className>XWiki.WikiMacroParameterClass</className>
+<guid>bfafc74e-c800-4ea0-988e-41ae556595b3</guid>
+<property>
+<defaultValue>panel</defaultValue>
+</property>
+<property>
+<description></description>
+</property>
+<property>
+<mandatory>0</mandatory>
+</property>
+<property>
+<name>displayer</name>
+</property>
+</object>
+<object>
+<class>
+<name>XWiki.WikiMacroParameterClass</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<defaultValue>
+<disabled>0</disabled>
+<name>defaultValue</name>
+<number>4</number>
+<prettyName>Parameter default value</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</defaultValue>
+<description>
+<disabled>0</disabled>
+<name>description</name>
+<number>2</number>
+<prettyName>Parameter description</prettyName>
+<rows>5</rows>
+<size>40</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+</description>
+<mandatory>
+<disabled>0</disabled>
+<displayFormType>select</displayFormType>
+<displayType>yesno</displayType>
+<name>mandatory</name>
+<number>3</number>
+<prettyName>Parameter mandatory</prettyName>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+</mandatory>
+<name>
+<disabled>0</disabled>
+<name>name</name>
+<number>1</number>
+<prettyName>Parameter name</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</name>
+</class>
+<name>Weather.Macro</name>
+<number>1</number>
+<className>XWiki.WikiMacroParameterClass</className>
+<guid>faa18487-19cd-4889-b98a-2cf8895f4011</guid>
+<property>
+<defaultValue></defaultValue>
+</property>
+<property>
+<description>Specifies the location as GPS coordinates (latitude, longitude)</description>
+</property>
+<property>
+<mandatory>1</mandatory>
+</property>
+<property>
+<name>location</name>
+</property>
+</object>
+<object>
+<class>
+<name>XWiki.WikiMacroParameterClass</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<defaultValue>
+<disabled>0</disabled>
+<name>defaultValue</name>
+<number>4</number>
+<prettyName>Parameter default value</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</defaultValue>
+<description>
+<disabled>0</disabled>
+<name>description</name>
+<number>2</number>
+<prettyName>Parameter description</prettyName>
+<rows>5</rows>
+<size>40</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+</description>
+<mandatory>
+<disabled>0</disabled>
+<displayFormType>select</displayFormType>
+<displayType>yesno</displayType>
+<name>mandatory</name>
+<number>3</number>
+<prettyName>Parameter mandatory</prettyName>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+</mandatory>
+<name>
+<disabled>0</disabled>
+<name>name</name>
+<number>1</number>
+<prettyName>Parameter name</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</name>
+</class>
+<name>Weather.Macro</name>
+<number>2</number>
+<className>XWiki.WikiMacroParameterClass</className>
+<guid>dd98b23a-259a-4ac6-b68d-773e19dd5dc5</guid>
+<property>
+<defaultValue>c</defaultValue>
+</property>
+<property>
+<description>Specifies the unit of measurement, either Celsius or Fahrenheit</description>
+</property>
+<property>
+<mandatory>0</mandatory>
+</property>
+<property>
+<name>units</name>
+</property>
+</object>
+<content></content></xwikidoc>
